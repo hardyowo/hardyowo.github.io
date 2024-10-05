@@ -11,8 +11,11 @@ header_pages:
 style: light 
 
 footer: 'jekyll-theme-console by b2a3e8'
-mathjax: true
 
 # Build settings
 markdown: kramdown
 theme: jekyll-theme-console
+
+# Plugins
+plugins:
+  - jekyll-spaceship
