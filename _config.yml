@@ -1,6 +1,6 @@
 title: 'hardyowo.github.io'
 description: "A jekyll theme inspired by linux consoles for hackers, developers and script kiddies."
-baseurl: ""
+baseurl: "/home/"
 url: "https://hardyowo.github.io"
 
 header_pages:
