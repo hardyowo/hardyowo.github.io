@@ -7,8 +7,6 @@ categories:
 
 # Title
 
-I can't get maths to work man
-
-$$
-y = mx+b
-$$
+I am literally dying from trying to get MathJax to work on this god damn website. Anyway, here is some maths for MathJax to render. $$e=mc^2$$
+$e=mc^2$
+\( e=mc^2 \)
