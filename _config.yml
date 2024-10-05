@@ -4,7 +4,7 @@ description: "A jekyll theme inspired by linux consoles for hackers, developers 
 header_pages:
   - index.md
   - about.md
-  - contact.md
+  - socials.md
 
 style: light 
 
