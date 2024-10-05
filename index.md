@@ -6,7 +6,7 @@ permalink: /
 
 # welcome
 
-This website contains information about me, my random ramblings, and my socials. Hope you find whatever you were looking for here.
+This website contains information about me, my random ramblings, and my socials. Hope you find whatever you are looking for here.
 
 # songs i have been listening to lately
 
