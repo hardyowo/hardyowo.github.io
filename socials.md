@@ -1,7 +1,7 @@
 ---
 title: /socials
 layout: page
-permalink: /socials/
+permalink: /socials
 ---
 
 # Socials
