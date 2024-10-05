@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: default
 title:  "Testing"
 date:   2024-10-05 6:43:00 +0100
 categories:
