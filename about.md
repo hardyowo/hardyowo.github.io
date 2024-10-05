@@ -4,7 +4,7 @@ title: /about
 permalink: /about
 ---
 
-# about me
+# about
 
 Hi! I'm Khanh Nguyen (he/they), a.k.a hardyowo, a philosophy student at the University of Edinburgh. While I am a philosophy student, I am also rather interested in mathematics. In fact, mathematics was my degree programme before I switched tracks. There are many reasons as to why I switched. To give one reason, mathematics does not address my concerns. I came into mathematics because (i) it was one of my best subjects back in high school, and (ii) I was really puzzled by proofs: why do they work and how? Mathematics does not really address the second reason why I came into it: it just assumes proofs work and goes on its merry way. Philosophy was where I should have been. And because I don't love mathematics enough to do it for its own sake, this weighed against me staying in the mathematics programme.
 
