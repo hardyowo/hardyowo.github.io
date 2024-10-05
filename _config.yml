@@ -15,7 +15,3 @@ footer: 'jekyll-theme-console by b2a3e8'
 # Build settings
 markdown: kramdown
 theme: jekyll-theme-console
-
-# Plugins
-plugins:
-  - jekyll-spaceship
