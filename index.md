@@ -17,3 +17,11 @@ This website contains information about me, my random ramblings, and my socials.
 3. [It Could Happen To You - song by Ryo Fukui](https://open.spotify.com/track/2fktrJuECcaRCgJuqwChL8?si=e322fa72be5343b4)
 
 4. [I Can Never Die - song by Fleshgod Apocalypse](https://open.spotify.com/track/4M73uHvbhiaMYRzUOSNVbG?si=ad101f11199841ba)
+
+# books i have been reading
+
+1. Critique of Pure Reason by Immanuel Kant
+
+2. Knowledge and Its Limits by Timothy Williamson
+
+3. An Invitation to Mathematical Logic by David Marker

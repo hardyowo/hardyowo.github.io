@@ -4,7 +4,7 @@ layout: page
 permalink: /socials
 ---
 
-# Socials
+# socials
 
 This page contains my socials.
 
