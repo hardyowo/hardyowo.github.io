@@ -23,12 +23,12 @@ repository               : "hardyowo/hardyowo.github.io"
 #               Additional customization can be done by editing /_includes/author-profile.html
 author:
   # Biographic information
-  avatar           : "profile.png"
+  avatar           : "96926681.jpeg"
   name             : "Khanh Nguyen"
   pronouns         : "he/they" 
   bio              : "Qualia-absented Homunculi-headed System"
   location         : "Edinburgh, UK"
-  employer         : "The University of Edinburgh"
+  employer         : "University of Edinburgh"
   uri              : # URL
   email            : "khanh.nguyen@khnguyxn.eu" 
 
