@@ -38,9 +38,9 @@ html[data-theme="dark"] {
     --global-base-color                 : #{$background};
     --global-bg-color                   : #{$background};
     --global-footer-bg-color            : #{$background};
-    --global-border-color               : #{$light-gray};
+    --global-border-color               : #{$background-light};
     --global-dark-border-color          : #{$background-light};
-    --global-code-background-color      : #fdf6e3;
+    --global-code-background-color      : #{$background-light};
     --global-code-text-color            : #{$light-gray};
     --global-fig-caption-color          : #{$light-gray};
     --global-link-color                 : #{$link};
