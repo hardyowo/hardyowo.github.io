@@ -11,4 +11,4 @@ redirect_from:
 
 Education
 ======
-* M.A. in Philosophy, The University of Edinburgh, 2026 (expected)
+* M.A. in Philosophy, The University of Edinburgh, 2026
