@@ -10,4 +10,4 @@ I am Khanh Nguyen, an incoming MSc Philosophy student at the University of Glasg
 
 My primary research interests are in political realism, political legitimacy, political obligation, liberalism, and social epistemology. I also have a strong background in logic, philosophy of science, philosophy of language, metaphysics, general epistemology, and mathematics. 
 
-This website contains my CV, and my blog posts.
+This website contains my CV and my blog posts.
