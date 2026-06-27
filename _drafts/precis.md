@@ -1,5 +1,5 @@
 ---
-title:  "A précis on my undergraduate dissertation *Beauty in Matrixland*"
+title:  "A précis of my undergraduate dissertation *Beauty in Matrixland*"
 tags:
   - dissertation
   - undergraduate
