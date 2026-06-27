@@ -19,9 +19,9 @@ EDUCATION
 - **Grade:** First-Class Honours
 - **Coursework Dissertations:**
   - *On Hasok Chang's Pragmatic Realism* for Science and Realism, a
-    Historical Look \| Awarded First-Class
+    Historical Look - Awarded First-Class
   - *Beauty in Matrixland* for Philosophy of Virtual Worlds and Language
-    Models \| Awarded First-Class
+    Models - Awarded First-Class
 - **Maths Classes Passed:** Introduction to Linear Algebra; Calculus and
   its Applications; Proofs and Problem Solving; Introduction to Data
   Science; Several Variable Calculus and Differential Equations;
