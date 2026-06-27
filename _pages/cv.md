@@ -10,8 +10,8 @@ redirect_from:
 
 {% include base_path %}
 
-# EDUCATION
-
+EDUCATION
+======
 **MSc Philosophy, University of Glasgow (2026-2027)**
 - Starting September 2026
 
@@ -42,8 +42,8 @@ redirect_from:
   - Physics - Awarded 7/7
   - Computer Science - Awarded 7/7
 
-# EXTRACURRICULARS
-
+EXTRACURRICULARS
+======
 **VEX Robotics Club, Lead Programmer and Designer (2019-2020)**
 - Podium finish at the local Vietnamese competition
 
@@ -60,7 +60,8 @@ redirect_from:
 
 **Improv Comedy (2026)**
 
-# SKILLS AND LANGUAGES 
+SKILLS AND LANGUAGES
+======
 
 Natural Languages: English (Bilingual Proficiency), Vietnamese
 (Bilingual Proficiency)
