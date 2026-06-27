@@ -9,4 +9,3 @@ redirect_from:
 
 {% include base_path %}
 
-{% pdf "https://www.khnguyxn.eu/files/CV.pdf" %}
