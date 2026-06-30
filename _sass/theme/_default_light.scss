@@ -2,19 +2,24 @@
    DEFAULT THEME
    ========================================================================== */
 
+/* Bauhaus palette: off-white, black, orange */
+$bauhaus-white              : #f4f1ea;
+$bauhaus-black              : #1a1a1a;
+$bauhaus-orange             : #e8501e;
+
 /* Color codes used for the theme */
-$gray                       : #839496;
-$dark-gray                  : #657b83;
-$darker-gray                : #002b36;
-$light-gray                 : #93a1a1;
+$gray                       : #1a1a1a;
+$dark-gray                  : #1a1a1a;
+$darker-gray                : #1a1a1a;
+$light-gray                 : $bauhaus-white;
 $lighter-gray               : mix(#fff, $gray, 90%);
 
-$background                 : #fdf6e3;
-$background-light           : #eee8d5;
-$background-dark           : #eee8d5;
-$background-lighter         : #eee8d5;
-$text                       : #657b83;
-$link                       : #268bd2;
+$background                 : $bauhaus-white;
+$background-light           : mix(#000, $bauhaus-white, 6%);
+$background-dark            : mix(#000, $bauhaus-white, 6%);
+$background-lighter         : mix(#000, $bauhaus-white, 6%);
+$text                       : $bauhaus-black;
+$link                       : $bauhaus-orange;
 $link-dark                  : mix(#000, $link, 25%);
 $link-light                 : mix(#fff, $link, 25%);
 
@@ -49,7 +54,7 @@ $sidebar-screen-min-width   : 1024px;
     --global-link-color-hover           : #{$link-dark};
     --global-link-color-visited         : #{$link-light};
     --global-masthead-link-color        : #{$text};
-    --global-masthead-link-color-hover  : #{$darker-gray};
+    --global-masthead-link-color-hover  : #{$bauhaus-orange};
     --global-text-color                 : #{$text};
     --global-text-color-light           : #{$text};
     --global-thead-color                : #{$background};

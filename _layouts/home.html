@@ -1,0 +1,258 @@
+---
+layout: compress
+---
+
+{% include base_path %}
+
+<!doctype html>
+<html lang="{{ site.locale | slice: 0,2 }}" class="no-js">
+  <head>
+    {% include head.html %}
+    {% include head/custom.html %}
+    <style>
+      :root {
+        --bauhaus-white: #f4f1ea;
+        --bauhaus-black: #1a1a1a;
+        --bauhaus-orange: #e8501e;
+        --bauhaus-blue: #21409a;
+      }
+      html, body {
+        height: 100%;
+        width: 100%;
+        max-width: none;
+        margin: 0;
+        padding: 0;          /* override main.css body { padding: 70px 0 0 } */
+        float: none;
+        overflow: hidden;
+        background: var(--bauhaus-white);
+      }
+      .home-page {
+        height: calc(100vh - 1.2rem);
+        margin: 0.6rem;
+        border: 2px solid transparent;
+        display: flex;
+        box-sizing: border-box;
+        background: var(--bauhaus-white);
+      }
+      .home-header {
+        position: relative;
+        display: flex;
+        flex-direction: row;
+        align-items: stretch;
+        width: 100%;
+        height: 100%;
+      }
+      .home-left,
+      .home-right {
+        flex: 0 0 50%;
+        min-width: 0;
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        box-sizing: border-box;
+      }
+      .home-left {
+        padding: 0;
+      }
+      .home-right {
+        padding: 0 1rem;
+        align-items: stretch;
+      }
+      .home-title {
+        position: relative;
+        margin: 0;
+        width: 100%;
+        height: 100%;
+        color: var(--bauhaus-black);
+      }
+      .home-title__link {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        inset: 0;
+        color: inherit;
+        text-decoration: none;
+      }
+      .home-title__line {
+        position: relative;
+        flex: 1 1 0;
+        min-height: 0;
+        overflow: visible;
+      }
+      .home-title__svg {
+        display: block;
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        overflow: visible;
+        transition: filter 0.25s ease;
+      }
+      .home-title__text {
+        font-family: "Inclusive Sans", -apple-system, sans-serif;
+        font-weight: 700;
+        text-transform: uppercase;
+        dominant-baseline: alphabetic;
+        fill: var(--bauhaus-blue);
+      }
+      .home-nav {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: stretch;
+        width: 100%;
+        height: 100%;
+      }
+      .home-nav a {
+        display: block;
+        color: var(--bauhaus-black);
+        text-decoration: none;
+        font-size: 1em;
+        font-weight: 700;
+        line-height: 1;
+        text-transform: uppercase;
+        letter-spacing: 0.02em;
+        overflow-wrap: break-word;
+        word-break: break-word;
+        transition: color 0.15s ease;
+      }
+      .home-nav a:hover {
+        color: var(--bauhaus-orange);
+      }
+    </style>
+  </head>
+
+  <body>
+    {% include browser-upgrade.html %}
+
+    <main class="home-page">
+      <header class="home-header">
+        <div class="home-left">
+          <h1 class="home-title" data-title="{{ page.title }}"><a class="home-title__link" href="{{ base_path }}/" aria-label="{{ page.title }}"></a></h1>
+        </div>
+        <div class="home-right">
+          <nav class="home-nav">
+            {% for link in site.data.navigation.main %}
+              {% if link.url contains 'http' %}
+                {% assign domain = '' %}
+              {% else %}
+                {% assign domain = base_path %}
+              {% endif %}
+              <a href="{{ domain }}{{ link.url }}">{{ link.title }}</a>
+            {% endfor %}
+          </nav>
+        </div>
+      </header>
+    </main>
+
+    <script>
+      (function () {
+        // Size the navbar so its widest item fills the column width, capped so
+        // all items still fit the column height. The nav itself spans the full
+        // height (space-between), so the first item's top lines up with the top
+        // of the title and the last item's bottom lines up with its bottom.
+        function fitNav() {
+          var right = document.querySelector(".home-right");
+          var nav = document.querySelector(".home-nav");
+          if (!right || !nav) return;
+          var links = nav.querySelectorAll("a");
+          if (!links.length) return;
+          var base = 100;
+          nav.style.fontSize = base + "px";
+          // Measure each item's intrinsic single-line width.
+          links.forEach(function (a) { a.style.whiteSpace = "nowrap"; });
+          var maxW = 0;
+          links.forEach(function (a) { maxW = Math.max(maxW, a.scrollWidth); });
+          links.forEach(function (a) { a.style.whiteSpace = ""; });
+          var cs = getComputedStyle(right);
+          var availW = right.clientWidth -
+            parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
+          var availH = right.clientHeight -
+            parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom);
+          var byWidth = (availW / maxW) * base;
+          var byHeight = availH / links.length;
+          var px = Math.min(byWidth, byHeight) * 0.95;
+          nav.style.fontSize = px + "px";
+          // Pull the first item up by its ascent leading so the cap-top of the
+          // top nav text aligns with the rim (the line-box top sits above the
+          // caps; the title fills to the rim precisely, so the nav should too).
+          var nctx = fitNav._ctx || (fitNav._ctx =
+            document.createElement("canvas").getContext("2d"));
+          nctx.font = '700 ' + px + 'px "Inclusive Sans", -apple-system, sans-serif';
+          nctx.textBaseline = "alphabetic";
+          var m = nctx.measureText(links[0].textContent.trim());
+          var capTopOffset = (px - (m.fontBoundingBoxAscent + m.fontBoundingBoxDescent)) / 2 +
+            m.fontBoundingBoxAscent - m.actualBoundingBoxAscent;
+          links[0].style.marginTop = -capTopOffset + "px";
+          // Push the last item down by its descent leading so the baseline of the
+          // bottom nav text aligns with the rim (bottom of the page).
+          var last = links[links.length - 1];
+          var m2 = nctx.measureText(last.textContent.trim());
+          var capBottomOffset = (px - (m2.fontBoundingBoxAscent + m2.fontBoundingBoxDescent)) / 2 +
+            m2.fontBoundingBoxDescent - m2.actualBoundingBoxDescent;
+          last.style.marginBottom = -capBottomOffset + "px";
+        }
+        // Render each title word as its own SVG on its own row. Each word is
+        // stretched (preserveAspectRatio=none) to fill its row's full width and
+        // height independently, so every word reaches edge to edge. The per-word
+        // viewBox is cropped top/bottom so the capital letters fill the row and
+        // the gap between stacked words is minimised.
+        var SVGNS = "http://www.w3.org/2000/svg";
+        function fillTitle() {
+          var h1 = document.querySelector(".home-title");
+          var link = document.querySelector(".home-title__link");
+          if (!h1 || !link) return;
+          var words = (h1.getAttribute("data-title") || "")
+            .toUpperCase().split(/\s+/).filter(Boolean);
+          if (!link.querySelector(".home-title__line")) {
+            words.forEach(function (w) {
+              var line = document.createElement("div");
+              line.className = "home-title__line";
+              var svg = document.createElementNS(SVGNS, "svg");
+              svg.setAttribute("class", "home-title__svg");
+              svg.setAttribute("preserveAspectRatio", "none");
+              var t = document.createElementNS(SVGNS, "text");
+              t.setAttribute("class", "home-title__text");
+              t.setAttribute("x", "0");
+              t.setAttribute("y", "0");
+              t.style.fontSize = "100px";
+              t.textContent = w;
+              svg.appendChild(t);
+              line.appendChild(svg);
+              link.appendChild(line);
+            });
+          }
+          // Measure the true glyph ink box with canvas (SVG getBBox returns the
+          // font's metric box, which has leading above the caps). actualBoundingBox
+          // gives tight ink bounds, so the caps fill each row exactly.
+          var ctx = (fillTitle._ctx || (fillTitle._ctx =
+            document.createElement("canvas").getContext("2d")));
+          ctx.font = '700 100px "Inclusive Sans", -apple-system, sans-serif';
+          ctx.textBaseline = "alphabetic";
+          link.querySelectorAll(".home-title__line").forEach(function (line) {
+            var svg = line.querySelector("svg");
+            var m = ctx.measureText(svg.querySelector("text").textContent);
+            var x = -m.actualBoundingBoxLeft;
+            var y = -m.actualBoundingBoxAscent;
+            var w = m.actualBoundingBoxLeft + m.actualBoundingBoxRight;
+            var h = m.actualBoundingBoxAscent + m.actualBoundingBoxDescent;
+            svg.setAttribute("viewBox", x + " " + y + " " + w + " " + h);
+          });
+        }
+        function fitAll() {
+          fillTitle();
+          fitNav();
+        }
+        window.addEventListener("resize", fitAll);
+        window.addEventListener("orientationchange", fitAll);
+        // Re-fit once the Inclusive Sans webfont swaps in (metrics change).
+        if (document.fonts && document.fonts.ready) {
+          document.fonts.ready.then(fitAll);
+        }
+        fitAll();
+      })();
+    </script>
+
+    {% include scripts.html %}
+  </body>
+</html>
