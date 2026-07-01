@@ -12,6 +12,7 @@
 
   @include clearfix();
   margin-bottom: 1em;
+  text-transform: lowercase;
 
   @media (orientation: portrait) {
     margin-top: 1em;
