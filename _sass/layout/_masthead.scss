@@ -59,9 +59,22 @@
   display: block;
   list-style-type: none;
   white-space: nowrap;
+  text-transform: lowercase;
 
   &--lg {
     padding-right: 2em;
     font-weight: 700;
+
+    // On desktop, widen the site-title cell so the following nav items
+    // (Blog Posts, CV) line up with the left edge of the main content column.
+    @include breakpoint($large) {
+      width: 245.56px;
+    }
+
+    // Keep the link (and its hover underline) only as wide as the title text,
+    // instead of stretching to fill the widened cell.
+    a {
+      width: fit-content;
+    }
   }
 }
