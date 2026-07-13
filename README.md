@@ -1,96 +1,98 @@
-# Academic Pages
-**Academic Pages is a GitHub Pages template for personal and professional portfolio-oriented websites.**
+# khnguyxn.eu
 
-![Academic Pages template example](images/themes/homepage-light.png "Academic Pages template example")
+Khanh Nguyen's personal website — a Jekyll site with a custom, **minimalissimo-inspired** theme
+(after [minimalissimo.com](https://minimalissimo.com)). It hosts an About page, a CV, and a
+Writings (blog) section with full LaTeX math support.
 
-# Getting Started
+Live at **https://www.khnguyxn.eu**.
 
-1. Register a GitHub account if you don't have one and confirm your e-mail (required!)
-1. Click the "Use this template" button in the top right.
-1. On the "New repository" page, enter your public repository name as "[your GitHub username].github.io", which will also be your website's URL.
-1. Set site-wide configuration and add your content.
-1. Upload any files (like PDFs, .zip files, etc.) to the `files/` directory. They will appear at https://[your GitHub username].github.io/files/example.pdf.
-1. Check status by going to the repository settings, in the "GitHub pages" section
-1. (Optional) Use the Jupyter notebooks or python scripts in the `markdown_generator` folder to generate markdown files for publications and talks from a TSV file.
+## Design
 
-See more info at https://academicpages.github.io/
+The visual system is hand-written (with Claude) and lives almost entirely in
+[`assets/css/minimalissimo.css`](assets/css/minimalissimo.css). It intentionally replaces the
+original Academic Pages / Minimal Mistakes styling.
+
+- **Typeface** — [Geist Sans](https://vercel.com/font) for body and UI (loaded from jsDelivr),
+  a system monospace stack for meta labels.
+- **Palette** — white canvas, near-black text, muted greys, and a single orange accent
+  (`#ff4400`). No borders beyond hairlines.
+- **Layout** — a wide editorial container (`max-width: 125rem`, ~2000px) with a 50/50 grid and
+  a 16px gutter, matching minimalissimo's column edges. Tight vertical rhythm.
+- **Header** — a breadcrumb "directory" on the top-left (`khnguyxn / Writings / …`) and the
+  post date on the top-right.
+- **Navigation** — a floating pill docked at the bottom-centre (back-to-top · wordmark · menu);
+  the menu button opens a pop-up list (Home / Writings / CV). Pure CSS, no JS.
+- **Home** — a hero with the wordmark in the left rail and a right-aligned 24px intro statement,
+  followed by a horizontal author band and a grid of post cards.
+- **Posts** — the layout adapts to the content:
+  - posts **with an image** (a front-matter `image:` or an `<img>` in the body) use the
+    two-column layout (media left, text right);
+  - posts **without images** render as a centred reading column.
+- **CV** — the PDF embed and download button are centred (`wide` page).
+- **Math** — [MathJax 4](https://www.mathjax.org/) with the sans-serif **Fira** math font,
+  sized to match the body text and rendered on the text baseline.
+
+### Where things live
+
+| Path | Purpose |
+| --- | --- |
+| `assets/css/minimalissimo.css` | The entire design system |
+| `_layouts/default.html` | Page skeleton: `<head>`, breadcrumb header, footer, floating pill, pop-up menu, fonts + MathJax |
+| `_layouts/home.html` | Home hero + author band + writing grid |
+| `_layouts/single.html` | Posts/pages: two-column (with images) or centred (without); `wide` for the CV |
+| `_layouts/archive.html` | Listings (Writings index, sitemap, taxonomies) |
+| `_includes/` | `footer-mini`, `author-band`, `posts-grid`, `post-content` partials |
+| `_data/navigation.yml` | Top-level nav (Writings, CV) |
+| `_pages/` | `about.md` (home, `/`), `cv.md`, `year-archive.html` (Writings) |
+| `_posts/` | Blog posts (Markdown, with `$$…$$` / `\(…\)` math) |
+
+## Adding content
+
+- **A blog post** — add `_posts/YYYY-MM-DD-title.md` with front matter `title`, `date`, and
+  optional `tags`. Add `image: /images/foo.jpg` if you want the two-column layout with a
+  featured image; otherwise it renders centred.
+- **Files** (PDFs, slides, etc.) — drop them in `files/`; they're served at `/files/…`.
+- **Navigation** — edit `_data/navigation.yml`.
+- **Author details** (name, bio, socials) — edit the `author:` block in `_config.yml`.
 
 ## Running locally
 
-When you are initially working on your website, it is very useful to be able to preview the changes locally before pushing them to GitHub. To work locally you will need to:
+You need Ruby (with `ruby-dev`), Bundler, and Node.
 
-1. Clone the repository and made updates as detailed above.
+```bash
+# macOS
+brew install ruby node
+gem install bundler
+```
 
-### Using a different IDE
-1. Make sure you have ruby-dev, bundler, and nodejs installed
-    
-    On most Linux distribution and [Windows Subsystem Linux](https://learn.microsoft.com/en-us/windows/wsl/about) the command is:
-    ```bash
-    sudo apt install ruby-dev ruby-bundler nodejs
-    ```
-    If you see error `Unable to locate package ruby-bundler`, `Unable to locate package nodejs `, run the following:
-    ```bash
-    sudo apt update && sudo apt upgrade -y
-    ```
-    then try run `sudo apt install ruby-dev ruby-bundler nodejs` again.
+Then, from the repository root:
 
-    On MacOS the commands are:
-    ```bash
-    brew install ruby
-    brew install node
-    gem install bundler
-    ```
-1. Run `bundle install` to install ruby dependencies. If you get errors, delete Gemfile.lock and try again.
+```bash
+bundle install                       # install Ruby dependencies (delete Gemfile.lock if it errors)
+bundle exec jekyll serve -l -H localhost
+```
 
-    If you see file permission error like `Fetching bundler-2.6.3.gem ERROR:  While executing gem (Gem::FilePermissionError) You don't have write permissions for the /var/lib/gems/3.2.0 directory.` or `Bundler::PermissionError: There was an error while trying to write to /usr/local/bin.`
-    Install Gems Locally (Recommended):
-    ```bash
-    bundle config set --local path 'vendor/bundle'
-    ```
-    then try run `bundle install` again. If succeeded, you should see a folder called `vendor` and `.bundle`.
+The site is served at http://localhost:4000. Markdown/HTML changes rebuild automatically;
+changes to `_config.yml` require restarting Jekyll.
 
-1. Run `jekyll serve -l -H localhost` to generate the HTML and serve it from `localhost:4000` the local server will automatically rebuild and refresh the pages on change to Markdown (*.md) and HTML files, while changes to the core template and configuration (i.e., `_config.yml`) will require stoping and restarting Jekyll.
-    You may also try `bundle exec jekyll serve -l -H localhost` to ensure jekyll to use specific dependencies on your own local machine.
+> Note: internal links and assets use `relative_url` (root-relative), so the local preview and
+> the production build behave the same.
 
-If you are running on Linux it may be necessary to install some additional dependencies prior to being able to run locally: `sudo apt install build-essential gcc make`
-
-## Using Docker
-
-Working from a different OS, or just want to avoid installing dependencies? You can use the provided `Dockerfile` to build a container that will run the site for you if you have [Docker](https://www.docker.com/) installed.
-
-You can build and execute the container by running the following command in the repository:
+### Using Docker
 
 ```bash
 chmod -R 777 .
 docker compose up
 ```
 
-You should now be able to access the website from `localhost:4000`.
+The site will be available at http://localhost:4000.
 
-### Using the DevContainer in VS Code
+## Credits
 
-If you are using [Visual Studio Code](https://code.visualstudio.com/) you can use the [Dev Container](https://code.visualstudio.com/docs/devcontainers/containers) that comes with this Repository. Normally VS Code detects that a development coontainer configuration is available and asks you if you want to use the container. If this doesn't happen you can manually start the container by **F1->DevContainer: Reopen in Container**. This restarts your VS Code in the container and automatically hosts your academic page locally on http://localhost:4000. All changes will be updated live to that page after a few seconds.
+- Design inspired by **[Minimalissimo](https://minimalissimo.com)**.
+- Built on **Jekyll**; the project began as a fork of
+  [Academic Pages](https://github.com/academicpages/academicpages.github.io) (itself a fork of the
+  [Minimal Mistakes](https://mmistakes.github.io/minimal-mistakes/) theme, © Michael Rose, MIT).
+- Fonts: **Geist Sans**; math set in **Fira** via **MathJax 4**.
 
-# Maintenance
-
-Bug reports and feature requests to the template should be [submitted via GitHub](https://github.com/academicpages/academicpages.github.io/issues/new/choose). For questions concerning how to style the template, please feel free to start a [new discussion on GitHub](https://github.com/academicpages/academicpages.github.io/discussions).
-
-This repository was forked (then detached) by [Stuart Geiger](https://github.com/staeiou) from the [Minimal Mistakes Jekyll Theme](https://mmistakes.github.io/minimal-mistakes/), which is © 2016 Michael Rose and released under the MIT License (see LICENSE.md). It is currently being maintained by [Robert Zupko](https://github.com/rjzupkoii) and additional maintainers would be welcomed.
-
-## Bugfixes and enhancements
-
-If you have bugfixes and enhancements that you would like to submit as a pull request, you will need to [fork](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo) this repository as opposed to using it as a template. This will also allow you to [synchronize your copy](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/syncing-a-fork) of template to your fork as well.
-
-Unfortunately, one logistical issue with a template theme like Academic Pages that makes it a little tricky to get bug fixes and updates to the core theme. If you use this template and customize it, you will probably get merge conflicts if you attempt to synchronize. If you want to save your various .yml configuration files and markdown files, you can delete the repository and fork it again. Or you can manually patch.
-
----
-<div align="center">
-    
-![pages-build-deployment](https://github.com/academicpages/academicpages.github.io/actions/workflows/pages/pages-build-deployment/badge.svg)
-[![GitHub contributors](https://img.shields.io/github/contributors/academicpages/academicpages.github.io.svg)](https://github.com/academicpages/academicpages.github.io/graphs/contributors)
-[![GitHub release](https://img.shields.io/github/v/release/academicpages/academicpages.github.io)](https://github.com/academicpages/academicpages.github.io/releases/latest)
-[![GitHub license](https://img.shields.io/github/license/academicpages/academicpages.github.io?color=blue)](https://github.com/academicpages/academicpages.github.io/blob/master/LICENSE)
-
-[![GitHub stars](https://img.shields.io/github/stars/academicpages/academicpages.github.io)](https://github.com/academicpages/academicpages.github.io)
-[![GitHub forks](https://img.shields.io/github/forks/academicpages/academicpages.github.io)](https://github.com/academicpages/academicpages.github.io/fork)
-</div>
+Released under the MIT License (see [LICENSE](LICENSE)).
