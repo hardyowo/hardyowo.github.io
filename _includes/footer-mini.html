@@ -1,0 +1,46 @@
+<footer class="site-footer">
+  <div class="site-footer__inner">
+
+    <div class="footer-brand">
+      <a class="wordmark" href="{{ '/' | relative_url }}">{{ site.title }}</a>
+      {% if site.author.bio %}<p>{{ site.author.bio }}</p>{% endif %}
+    </div>
+
+    <div class="footer-col">
+      <h3>Site</h3>
+      <ul>
+        <li><a href="{{ '/' | relative_url }}">About</a></li>
+        {% for link in site.data.navigation.main %}
+          {% if link.url contains 'http' %}{% assign href = link.url %}{% else %}{% assign href = link.url | relative_url %}{% endif %}
+          <li><a href="{{ href }}">{{ link.title }}</a></li>
+        {% endfor %}
+        <li><a href="{{ '/feed.xml' | relative_url }}">RSS</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h3>Socials</h3>
+      <ul>
+        {% if site.author.github %}<li><a href="https://github.com/{{ site.author.github }}">GitHub</a></li>{% endif %}
+        {% if site.author.bluesky %}<li><a href="https://bsky.app/profile/{{ site.author.bluesky }}">Bluesky</a></li>{% endif %}
+        {% if site.author.linkedin %}<li><a href="https://www.linkedin.com/in/{{ site.author.linkedin }}">LinkedIn</a></li>{% endif %}
+        {% if site.author.email %}<li><a href="mailto:{{ site.author.email }}">Email</a></li>{% endif %}
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h3>Info</h3>
+      <ul>
+        {% if site.author.location %}<li>{{ site.author.location }}</li>{% endif %}
+        {% if site.author.employer %}<li>{{ site.author.employer }}</li>{% endif %}
+        <li><a href="{{ '/sitemap/' | relative_url }}">Sitemap</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-legal">
+      <span>&copy; {{ site.time | date: '%Y' }} {{ site.author.name | default: site.title }}</span>
+      <span>In the spirit of Minimalissimo</span>
+    </div>
+
+  </div>
+</footer>

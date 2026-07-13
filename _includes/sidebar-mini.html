@@ -1,0 +1,21 @@
+{% assign a = site.author %}
+<div class="profile">
+  {% if a.avatar %}
+    <img class="profile__avatar" src="{{ a.avatar | prepend: '/images/' | relative_url }}" alt="{{ a.name }}">
+  {% endif %}
+  <div class="profile__name">{{ a.name }}</div>
+  {% if a.pronouns %}<div class="profile__sub">{{ a.pronouns }}</div>{% endif %}
+  {% if a.bio %}<p class="profile__bio">{{ a.bio }}</p>{% endif %}
+
+  <ul class="profile__facts">
+    {% if a.location %}<li>{{ a.location }}</li>{% endif %}
+    {% if a.employer %}<li>{{ a.employer }}</li>{% endif %}
+  </ul>
+
+  <ul class="profile__links">
+    {% if a.email %}<li><a href="mailto:{{ a.email }}">Email</a></li>{% endif %}
+    {% if a.github %}<li><a href="https://github.com/{{ a.github }}">GitHub</a></li>{% endif %}
+    {% if a.bluesky %}<li><a href="https://bsky.app/profile/{{ a.bluesky }}">Bluesky</a></li>{% endif %}
+    {% if a.linkedin %}<li><a href="https://www.linkedin.com/in/{{ a.linkedin }}">LinkedIn</a></li>{% endif %}
+  </ul>
+</div>

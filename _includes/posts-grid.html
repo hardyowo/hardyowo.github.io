@@ -1,0 +1,15 @@
+<div class="cards">
+  {% for post in site.posts %}
+    {% assign words = post.content | number_of_words %}
+    {% assign minutes = words | divided_by: 180 | plus: 1 %}
+    <article class="card">
+      <a href="{{ post.url | relative_url }}">
+        <div class="card__tile">
+          <span class="card__kicker">{{ post.date | date: "%Y.%m.%d" }}</span>
+          <h3 class="card__head">{{ post.title }}</h3>
+        </div>
+        <p class="card__meta">{{ minutes }} min read{% if post.tags.size > 0 %} · {{ post.tags | join: ", " }}{% endif %}</p>
+      </a>
+    </article>
+  {% endfor %}
+</div>

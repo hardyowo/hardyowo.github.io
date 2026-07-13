@@ -1,0 +1,16 @@
+---
+layout: default
+---
+<section class="home-hero">
+  <a class="home-hero__brand" href="{{ '/' | relative_url }}">{{ site.title }}</a>
+  <div class="home-intro">
+    {{ content }}
+  </div>
+</section>
+
+{% include author-band.html %}
+
+<section class="home-writing">
+  <div class="home-writing__label">Writings</div>
+  {% include posts-grid.html %}
+</section>
