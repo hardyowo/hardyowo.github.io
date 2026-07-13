@@ -1,7 +1,7 @@
 ---
 layout: home
 permalink: /
-title: "About Me"
+title: "Home"
 redirect_from: 
   - /about/
   - /about.html
