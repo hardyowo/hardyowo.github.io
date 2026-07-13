@@ -1,12 +1,12 @@
 ---
-layout: archive
+layout: single
 title: "CV"
 permalink: /cv/
-author_profile: true
+wide: true
 redirect_from:
   - /resume
 ---
 
-{% include base_path %}
+<p><a href="{{ '/files/CV.pdf' | relative_url }}">Download PDF ↗</a></p>
 
-{% pdf "/files/CV.pdf" %}
+<iframe class="pdf-embed" src="{{ '/files/CV.pdf' | relative_url }}" title="Curriculum Vitae"></iframe>

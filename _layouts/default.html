@@ -1,31 +1,92 @@
 ---
 layout: compress
 ---
-
-{% include base_path %}
-
 <!doctype html>
-<html lang="{{ site.locale | slice: 0,2 }}" class="no-js">
+<html lang="{{ site.locale | slice: 0,2 | default: 'en' }}">
   <head>
-    {% include head.html %}
-    {% include head/custom.html %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>{% if page.title and page.url != '/' %}{{ page.title }} — {{ site.title }}{% else %}{{ site.title }}{% endif %}</title>
+    <meta name="description" content="{{ page.description | default: page.excerpt | default: site.description | strip_html | strip_newlines | truncate: 160 }}">
+
+    <meta property="og:site_name" content="{{ site.title }}">
+    <meta property="og:title" content="{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}">
+    <meta property="og:type" content="{% if page.date %}article{% else %}website{% endif %}">
+    <meta name="theme-color" content="#ffffff">
+
+    <link rel="icon" type="image/svg+xml" href="{{ '/images/favicon.svg' | relative_url }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ '/images/favicon-32x32.png' | relative_url }}">
+    <link rel="apple-touch-icon" href="{{ '/images/apple-touch-icon-180x180.png' | relative_url }}">
+    <link rel="icon" href="{{ '/images/favicon.ico' | relative_url }}">
+
+    <!-- Geist Sans -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/geist-sans@5/index.css">
+
+    <link rel="stylesheet" href="{{ '/assets/css/minimalissimo.css' | relative_url }}">
+
+    <!-- MathJax (sans-serif Fira font, body-matched size) -->
+    <script>
+      window.MathJax = { output: { font: 'mathjax-fira' }, chtml: { matchFontHeight: false } };
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
   </head>
 
   <body>
+    <span id="top"></span>
+    <input type="checkbox" id="nav-toggle" aria-hidden="true">
 
-    {% include browser-upgrade.html %}
-    {% include masthead.html %}
+    {% unless page.url == '/' %}
+    <header class="site-header">
+      <nav class="crumbs" aria-label="Breadcrumb">
+        <a href="{{ '/' | relative_url }}">{{ site.title }}</a>
+        {% if page.date %}
+          <span class="crumbs__sep">/</span>
+          <a href="{{ '/year-archive/' | relative_url }}">Writings</a>
+          <span class="crumbs__sep">/</span>
+          <span class="crumbs__current">{{ page.title }}</span>
+        {% elsif page.url != '/' and page.title %}
+          <span class="crumbs__sep">/</span>
+          <span class="crumbs__current">{{ page.title }}</span>
+        {% endif %}
+      </nav>
+      <div class="crumbs__date">{% if page.date %}{{ page.date | date: "%B %-d, %Y" }}{% endif %}</div>
+    </header>
+    {% endunless %}
 
-    {{ content }}
+    <main class="container{% if page.url == '/' %} container--home{% endif %}">
+      {{ content }}
+    </main>
 
-    <div class="page__footer">
-      <footer>
-        {% include footer/custom.html %}
-        {% include footer.html %}
-      </footer>
+    {% include footer-mini.html %}
+
+    <!-- Pop-up menu (grows up from the pill) -->
+    <div class="menu-pop" role="navigation" aria-label="Menu">
+      <a href="{{ '/' | relative_url }}">Home</a>
+      {% for link in site.data.navigation.main %}
+        {% if link.url contains 'http' %}{% assign href = link.url %}{% else %}{% assign href = link.url | relative_url %}{% endif %}
+        <a href="{{ href }}">{{ link.title }}</a>
+      {% endfor %}
     </div>
 
-    {% include scripts.html %}
+    <!-- Floating pill -->
+    <div class="dock" role="navigation" aria-label="Quick actions">
+      <a class="dock__side" href="#top" aria-label="Back to top" title="Back to top">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V6M6 12l6-6 6 6"/></svg>
+      </a>
+      <a class="dock__brand" href="{{ '/' | relative_url }}">{{ site.title }}</a>
+      <label class="dock__side dock__toggle" for="nav-toggle" aria-label="Toggle menu" title="Menu">
+        <svg class="ic-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M4 9h16M4 15h16"/></svg>
+        <svg class="ic-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </label>
+    </div>
 
+    <!-- Mermaid diagram support -->
+    <script type="module">
+      import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+      mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+      await mermaid.run({ querySelector: 'code.language-mermaid' });
+    </script>
   </body>
 </html>

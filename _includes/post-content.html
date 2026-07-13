@@ -1,0 +1,17 @@
+{% if page.title %}<h1 class="doc__title">{{ page.title }}</h1>{% endif %}
+<div class="article__body">
+  {{ content }}
+</div>
+{% if page.date or page.tags.size > 0 %}
+  <div class="doc__facts">
+    {% if page.date %}
+      <div class="fact"><span class="fact__k">Published</span><span class="fact__v">{{ page.date | date: "%B %-d, %Y" }}</span></div>
+      {% assign words = content | number_of_words %}
+      {% assign minutes = words | divided_by: 180 | plus: 1 %}
+      <div class="fact"><span class="fact__k">Reading</span><span class="fact__v">{{ minutes }} min</span></div>
+    {% endif %}
+    {% if page.tags and page.tags.size > 0 %}
+      <div class="fact"><span class="fact__k">Tags</span><span class="fact__v">{{ page.tags | join: ", " }}</span></div>
+    {% endif %}
+  </div>
+{% endif %}

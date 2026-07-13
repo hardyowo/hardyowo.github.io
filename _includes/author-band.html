@@ -1,0 +1,24 @@
+{% assign a = site.author %}
+<section class="about-band">
+  {% if a.avatar %}
+    <img class="about-band__avatar" src="{{ a.avatar | prepend: '/images/' | relative_url }}" alt="{{ a.name }}">
+  {% endif %}
+
+  <div class="about-band__body">
+    <div class="about-band__name">
+      {{ a.name }}{% if a.pronouns %} <span class="about-band__pron">{{ a.pronouns }}</span>{% endif %}
+    </div>
+    {% if a.bio %}<div class="about-band__bio">{{ a.bio }}</div>{% endif %}
+    <div class="about-band__facts">
+      {% if a.location %}<span>{{ a.location }}</span>{% endif %}
+      {% if a.employer %}<span>{{ a.employer }}</span>{% endif %}
+    </div>
+  </div>
+
+  <nav class="about-band__links">
+    {% if a.email %}<a href="mailto:{{ a.email }}">Email</a>{% endif %}
+    {% if a.github %}<a href="https://github.com/{{ a.github }}">GitHub</a>{% endif %}
+    {% if a.bluesky %}<a href="https://bsky.app/profile/{{ a.bluesky }}">Bluesky</a>{% endif %}
+    {% if a.linkedin %}<a href="https://www.linkedin.com/in/{{ a.linkedin }}">LinkedIn</a>{% endif %}
+  </nav>
+</section>
