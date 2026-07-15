@@ -15,3 +15,5 @@
     {% endif %}
   </div>
 {% endif %}
+
+{% if page.date and page.comments != false %}{% include comments.html %}{% endif %}

@@ -95,6 +95,17 @@ words_per_minute         : 160
 future                   : true
 read_more                : "disabled" # if enabled, adds "Read more" links to excerpts
 talkmap_link             : false      #change to true to add link to talkmap on talks page
+
+# Comments — giscus (GitHub Discussions). Blog posts show a comment section
+# once repo_id and category_id are filled in below. Get all four values from
+# https://giscus.app after: (1) making the repo public, (2) enabling the
+# Discussions tab, and (3) installing the giscus app (https://github.com/apps/giscus).
+giscus:
+  repo                   : "hardyowo/hardyowo.github.io"
+  repo_id                : ""   # e.g. "R_kgDO..."      (from giscus.app)
+  category               : "Comments"
+  category_id            : ""   # e.g. "DIC_kwDO..."    (from giscus.app)
+
 comments:
   provider               : # false (default), "disqus", "discourse", "facebook", "google-plus", "staticman", "custom"
   disqus:
@@ -305,3 +316,9 @@ compress_html:
   clippings: all
   ignore:
     envs: development
+
+giscus:
+  repo: "hardyowo/hardyowo.github.io"
+  repo_id: "R_kgDOQGij_w"
+  category: "Comments"
+  category_id: "DIC_kwDOQGij_84DBPa8"

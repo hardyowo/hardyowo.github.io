@@ -263,6 +263,10 @@ a { color: inherit; text-decoration: none; }
 
 .pdf-embed { width: 100%; height: 85vh; border: 1px solid var(--line); }
 
+/* Comments (giscus) */
+.comments { margin-top: 5rem; padding-top: 1.5rem; border-top: 1px solid var(--line); }
+.comments__title { font-size: 1.15rem; font-weight: 500; letter-spacing: -0.02em; margin: 0 0 1rem; }
+
 /* MathJax: reset the inherited body line-height so it doesn't skew the
    baseline; let MathJax handle inline alignment natively. */
 mjx-container { line-height: normal; }
@@ -273,7 +277,7 @@ mjx-container { line-height: normal; }
 
 .wordmark { font-size: 1rem; font-weight: 500; letter-spacing: 0.01em; }
 
-.site-footer { background: var(--footer-bg); margin-top: 6rem; padding: 4rem 0 6rem; font-size: 0.85rem; }
+.site-footer { background: var(--footer-bg); margin-top: 0.5rem; padding: 4rem 0 6rem; font-size: 0.85rem; }
 .site-footer__inner {
   max-width: var(--maxw); margin: 0 auto; padding: 0 var(--pad);
   display: grid; grid-template-columns: repeat(12, 1fr); gap: 2rem var(--gap);
