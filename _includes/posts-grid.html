@@ -8,7 +8,7 @@
           <span class="card__kicker">{{ post.date | date: "%Y.%m.%d" }}</span>
           <h3 class="card__head">{{ post.title }}</h3>
         </div>
-        <p class="card__meta">{{ minutes }} min read{% if post.tags.size > 0 %} · {{ post.tags | join: ", " }}{% endif %}</p>
+        <p class="card__meta">{{ minutes }} min read</p>
       </a>
     </article>
   {% endfor %}

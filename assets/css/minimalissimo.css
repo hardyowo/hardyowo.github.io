@@ -75,7 +75,7 @@ a { color: inherit; text-decoration: none; }
 .crumbs a { color: #555; transition: color var(--dur) ease; }
 .crumbs a:hover { color: var(--accent); }
 .crumbs__sep { color: var(--muted-2); }
-.crumbs__current { color: var(--fg); }
+.crumbs__current { color: #000; }
 .crumbs__date { color: var(--muted); white-space: nowrap; }
 
 /* --------------------------------------------------------------------------
@@ -150,22 +150,26 @@ a { color: inherit; text-decoration: none; }
 
 .container--home { padding-top: 1rem; }
 
+/* Same 3-column grid as the Writings cards, so the intro's left edge lines
+   up with where the second card would start. */
 .home-hero {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem; /* 16px gutter, matching minimalissimo */
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: var(--gap);
   align-items: start;
   margin: 0 0 2.5rem;
 }
 .home-hero__brand {
+  grid-column: 1;
   font-size: 1rem; /* 16px */
   font-weight: 400;
-  color: #555;
+  color: #000;
   transition: color var(--dur) ease;
 }
 .home-hero__brand:hover { color: var(--accent); }
 
 .home-intro {
+  grid-column: 2 / 4;
   font-size: 1.5rem; /* 24px */
   line-height: 1.4;
   text-align: right;
@@ -178,9 +182,10 @@ a { color: inherit; text-decoration: none; }
 .home-writing__label,
 .listing__label {
   font-size: 0.8rem;
-  color: var(--muted);
   margin-bottom: 1rem;
 }
+.home-writing__label { color: #000; }
+.listing__label { color: var(--muted); }
 
 /* --------------------------------------------------------------------------
    Card grid (posts)
@@ -375,6 +380,7 @@ mjx-container { line-height: normal; }
   .doc { grid-template-columns: 1fr; gap: 1.75rem; }
   .doc__media:empty { display: none; }
   .home-hero { grid-template-columns: 1fr; gap: 0.75rem; }
+  .home-hero__brand, .home-intro { grid-column: 1; }
   .about-band { flex-wrap: wrap; }
   .about-band__links { flex-basis: 100%; }
   .footer-brand { grid-column: 1 / 7; }
