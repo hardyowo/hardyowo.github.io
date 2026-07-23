@@ -40,12 +40,12 @@ layout: compress
         <a href="{{ '/' | relative_url }}">{{ site.title }}</a>
         {% if page.date %}
           <span class="crumbs__sep">/</span>
-          <a href="{{ '/year-archive/' | relative_url }}">Writings</a>
+          <a href="{{ '/writings/' | relative_url }}">Writings</a>
           <span class="crumbs__sep">/</span>
-          <span class="crumbs__current">{{ page.title }}</span>
+          <a href="{{ page.url | relative_url }}" class="crumbs__current">{{ page.title }}</a>
         {% elsif page.url != '/' and page.title %}
           <span class="crumbs__sep">/</span>
-          <span class="crumbs__current">{{ page.title }}</span>
+          <a href="{{ page.url | relative_url }}" class="crumbs__current">{{ page.title }}</a>
         {% endif %}
       </nav>
       <div class="crumbs__date">{% if page.date %}{{ page.date | date: "%B %-d, %Y" }}{% endif %}</div>
@@ -60,10 +60,10 @@ layout: compress
 
     <!-- Pop-up menu (grows up from the pill) -->
     <div class="menu-pop" role="navigation" aria-label="Menu">
-      <a href="{{ '/' | relative_url }}">Home</a>
+      <a href="{{ '/' | relative_url }}"><span class="menu-pop__hl">Home</span></a>
       {% for link in site.data.navigation.main %}
         {% if link.url contains 'http' %}{% assign href = link.url %}{% else %}{% assign href = link.url | relative_url %}{% endif %}
-        <a href="{{ href }}">{{ link.title }}</a>
+        <a href="{{ href }}"><span class="menu-pop__hl">{{ link.title }}</span></a>
       {% endfor %}
     </div>
 
@@ -85,5 +85,55 @@ layout: compress
       mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
       await mermaid.run({ querySelector: 'code.language-mermaid' });
     </script>
+
+    <!-- Le Corbusier card colours: deterministic red/yellow/blue, derived from
+         each post's URL so every visitor sees the same fixed arrangement — it
+         only changes when a post is added/removed or the grid reflows. The
+         choice is column-aware: neither the left neighbour nor the card
+         directly above ever shares a colour. -->
+    <script>
+      (function () {
+        var COLORS = ['card--red', 'card--yellow', 'card--blue', 'card--green'];
+        function hash(s) { // deterministic FNV-1a — same result for every visitor
+          var h = 2166136261;
+          for (var i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); }
+          return h >>> 0;
+        }
+        function keyOf(card) {
+          var a = card.querySelector('a[href]');
+          return a ? a.pathname : (card.textContent || '').trim();
+        }
+
+        var lastCols = 0;
+        function colorize() {
+          var grids = document.querySelectorAll('.cards');
+          if (!grids.length) return;
+          var cols = getComputedStyle(grids[0]).gridTemplateColumns.split(' ').length;
+          if (cols === lastCols) return; // only recompute when the layout changes
+          lastCols = cols;
+
+          grids.forEach(function (grid) {
+            var cards = Array.prototype.slice.call(grid.querySelectorAll('.card'));
+            var assigned = [];
+            cards.forEach(function (card, i) {
+              var banned = {};
+              if (i % cols !== 0) banned[assigned[i - 1]] = true;   // left neighbour
+              if (i - cols >= 0) banned[assigned[i - cols]] = true; // neighbour above
+              var choices = COLORS.filter(function (c) { return !banned[c]; });
+              var pick = choices[hash(keyOf(card)) % choices.length];
+              COLORS.forEach(function (c) { card.classList.remove(c); });
+              card.classList.add(pick);
+              assigned[i] = pick;
+            });
+          });
+        }
+
+        if (document.readyState !== 'loading') colorize();
+        else document.addEventListener('DOMContentLoaded', colorize);
+        var t;
+        window.addEventListener('resize', function () { clearTimeout(t); t = setTimeout(colorize, 150); });
+      })();
+    </script>
+
   </body>
 </html>

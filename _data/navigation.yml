@@ -10,7 +10,7 @@
 main:
         
   - title: "Writings"
-    url: /year-archive/
+    url: /writings/
     
   - title: "CV"
     url: /cv/

@@ -14,7 +14,7 @@
   --tile: #f2f2f2;
   --tile-hover: #ededed;
   --footer-bg: #f7f7f7;
-  --accent: #ff4400;
+  --accent: AccentColor; /* the viewer's OS/device accent colour */
 
   --sans: "Geist Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
@@ -72,10 +72,11 @@ a { color: inherit; text-decoration: none; }
   align-items: baseline;
   gap: 0.5rem;
 }
-.crumbs a { color: #555; transition: color var(--dur) ease; }
-.crumbs a:hover { color: var(--accent); }
+.crumbs a { color: #555; }
+.crumbs a:hover { background-size: 100% 100%; color: #fff; }
 .crumbs__sep { color: var(--muted-2); }
-.crumbs__current { color: #000; }
+.crumbs a.crumbs__current { color: #000; }
+.crumbs a.crumbs__current:hover { color: #fff; }
 .crumbs__date { color: var(--muted); white-space: nowrap; }
 
 /* --------------------------------------------------------------------------
@@ -115,8 +116,7 @@ a { color: inherit; text-decoration: none; }
 .about-band__bio { color: var(--muted); font-size: 0.9rem; margin-top: 0.2rem; }
 .about-band__facts { color: var(--muted); font-size: 0.85rem; margin-top: 0.35rem; display: flex; flex-wrap: wrap; gap: 0.35rem 1rem; }
 .about-band__links { flex: none; display: flex; flex-wrap: wrap; gap: 1.25rem; font-size: 0.9rem; }
-.about-band__links a { transition: color var(--dur) ease; }
-.about-band__links a:hover { color: var(--accent); }
+.about-band__links a:hover { background-size: 100% 100%; color: #fff; }
 
 /* --------------------------------------------------------------------------
    Document layout (minimalissimo article/home): media left, content right
@@ -161,12 +161,12 @@ a { color: inherit; text-decoration: none; }
 }
 .home-hero__brand {
   grid-column: 1;
+  justify-self: start; /* hug the text so the hover wipe covers only "khnguyxn" */
   font-size: 1rem; /* 16px */
   font-weight: 400;
   color: #000;
-  transition: color var(--dur) ease;
 }
-.home-hero__brand:hover { color: var(--accent); }
+.home-hero__brand:hover { background-size: 100% 100%; color: #fff; }
 
 .home-intro {
   grid-column: 2 / 4;
@@ -177,7 +177,7 @@ a { color: inherit; text-decoration: none; }
 .home-intro p { margin: 0 0 0.6rem; }
 .home-intro p:last-child { margin-bottom: 0; }
 .home-intro a { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
-.home-intro a:hover { color: var(--accent); }
+.home-intro a:hover { background-size: 100% 100%; color: #fff; }
 
 .home-writing__label,
 .listing__label {
@@ -207,15 +207,32 @@ a { color: inherit; text-decoration: none; }
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  transition: background var(--dur) ease;
+  transition: filter var(--dur) ease;
   overflow: hidden;
 }
-.card:hover .card__tile { background: var(--tile-hover); }
+.card:hover .card__tile { filter: brightness(0.94); }
+
+/* Le Corbusier primaries — red / yellow / blue / green, assigned by script so
+   no two adjacent cards share a colour. */
+.card--red .card__tile    { background: #c0392b; color: #fff; }
+.card--blue .card__tile   { background: #2c4c8c; color: #fff; }
+.card--green .card__tile  { background: #3a7d44; color: #fff; }
+.card--yellow .card__tile { background: #edb100; color: #141414; }
+.card--red .card__kicker,
+.card--blue .card__kicker,
+.card--green .card__kicker { color: rgba(255, 255, 255, 0.72); }
+.card--yellow .card__kicker { color: rgba(0, 0, 0, 0.55); }
+.card--red .card__head,
+.card--blue .card__head,
+.card--green .card__head,
+.card--yellow .card__head { color: inherit; }
 
 .card__kicker { font-size: 0.75rem; color: var(--muted); font-family: var(--mono); letter-spacing: 0.02em; }
 .card__head { font-size: 1.5rem; line-height: 1.15; letter-spacing: -0.02em; font-weight: 400; max-width: 20ch; }
-.card__meta { margin-top: 0.75rem; font-size: 0.85rem; color: var(--muted); transition: color var(--dur) ease; }
-.card:hover .card__meta { color: var(--accent); }
+/* the highlight hugs the title text per line (inline + clone), not the block box */
+.card__head-hl { -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+.card__meta { margin-top: 0.75rem; font-size: 0.85rem; color: var(--muted); }
+.card:hover .card__head-hl { background-size: 100% 100%; color: #fff; }
 
 /* --------------------------------------------------------------------------
    Article / page
@@ -247,6 +264,7 @@ a { color: inherit; text-decoration: none; }
 .article__body h2 { font-size: 1.4rem; }
 .article__body h3 { font-size: 1.15rem; }
 .article__body a { color: var(--accent); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 2px; }
+.article__body a:hover { background-size: 100% 100%; color: #fff; }
 .article__body ul, .article__body ol { padding-left: 1.25rem; margin: 0 0 0.8rem; }
 .article__body li { margin: 0.15rem 0; }
 /* Ordered-list numbers: baseline-aligned via a counter so tall superscript
@@ -288,8 +306,7 @@ mjx-container { line-height: normal; }
 .footer-col h3 { font-size: 0.75rem; font-weight: 500; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin: 0 0 0.9rem; }
 .footer-col ul { list-style: none; margin: 0; padding: 0; }
 .footer-col li { margin: 0.4rem 0; }
-.footer-col a { transition: color var(--dur) ease; }
-.footer-col a:hover { color: var(--accent); }
+.footer-col a:hover { background-size: 100% 100%; color: #fff; }
 .footer-legal {
   grid-column: 1 / 13; margin-top: 2rem; padding-top: 1.5rem;
   border-top: 1px solid var(--line-strong); color: var(--muted);
@@ -322,12 +339,12 @@ mjx-container { line-height: normal; }
   width: 2.5rem; height: 2.5rem;
   display: flex; align-items: center; justify-content: center;
   color: var(--fg); cursor: pointer; border-radius: 6px;
-  transition: color var(--dur) ease, background var(--dur) ease;
 }
-.dock__side:hover { color: var(--accent); background: var(--tile); }
+.dock__side:hover { color: #fff; }
+.dock__side:hover svg { background-size: 100% 100%; }
 .dock__side svg { width: 1.15rem; height: 1.15rem; }
-.dock__brand { font-size: 0.95rem; font-weight: 500; letter-spacing: 0.01em; transition: color var(--dur) ease; }
-.dock__brand:hover { color: var(--accent); }
+.dock__brand { font-size: 0.95rem; font-weight: 500; letter-spacing: 0.01em; }
+.dock__brand:hover { background-size: 100% 100%; color: #fff; }
 
 .dock__toggle .ic-close { display: none; }
 #nav-toggle:checked ~ .dock .dock__toggle .ic-open { display: none; }
@@ -361,9 +378,8 @@ mjx-container { line-height: normal; }
   font-size: 0.95rem;
   color: var(--fg);
   border-radius: 5px;
-  transition: background var(--dur) ease, color var(--dur) ease;
 }
-.menu-pop a:hover { background: var(--tile); color: var(--accent); }
+.menu-pop a:hover .menu-pop__hl { background-size: 100% 100%; color: #fff; }
 .menu-pop__rule { height: 1px; background: var(--line); margin: 0.4rem 0.75rem; }
 
 /* --------------------------------------------------------------------------
@@ -398,4 +414,39 @@ mjx-container { line-height: normal; }
   .footer-brand, .footer-col { grid-column: 1 / 13; }
   .dock, .menu-pop { width: calc(100% - 2rem); }
   .crumbs__date { display: none; }
+}
+
+/* --------------------------------------------------------------------------
+   Hover affordance — a solid-black highlight wipes in from the left and the
+   text flips to white (replaces the former orange-accent hover site-wide).
+   -------------------------------------------------------------------------- */
+
+.crumbs a,
+.about-band__links a,
+.home-intro a,
+.home-hero__brand,
+.footer-col a,
+.dock__side svg,
+.dock__brand,
+.menu-pop__hl,
+.article__body a,
+.card__head-hl {
+  background-image: linear-gradient(#000, #000);
+  background-repeat: no-repeat;
+  background-position: left center;
+  background-size: 0% 100%;
+  transition: background-size 0.3s ease, color 0.3s ease;
+}
+
+/* Inline prose/nav links get a little breathing room so the wipe reads as a
+   marker highlight; the negative margin keeps their layout position unchanged. */
+.crumbs a,
+.about-band__links a,
+.home-intro a,
+.footer-col a,
+.article__body a {
+  padding: 0 0.14em;
+  margin: 0 -0.14em;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
 }

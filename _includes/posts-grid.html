@@ -1,12 +1,13 @@
 <div class="cards">
-  {% for post in site.posts %}
+  {% assign writings = site.posts | where_exp: "post", "post.tags contains 'writings'" %}
+  {% for post in writings %}
     {% assign words = post.content | number_of_words %}
     {% assign minutes = words | divided_by: 180 | plus: 1 %}
     <article class="card">
       <a href="{{ post.url | relative_url }}">
         <div class="card__tile">
           <span class="card__kicker">{{ post.date | date: "%Y.%m.%d" }}</span>
-          <h3 class="card__head">{{ post.title }}</h3>
+          <h3 class="card__head"><span class="card__head-hl">{{ post.title }}</span></h3>
         </div>
         <p class="card__meta">{{ minutes }} min read</p>
       </a>
