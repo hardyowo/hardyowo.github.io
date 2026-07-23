@@ -94,7 +94,8 @@ layout: compress
     <script>
       (function () {
         var COLORS = ['card--red', 'card--yellow', 'card--blue', 'card--green'];
-        function hash(s) { // deterministic FNV-1a — same result for every visitor
+        /* deterministic FNV-1a — same result for every visitor */
+        function hash(s) {
           var h = 2166136261;
           for (var i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); }
           return h >>> 0;
@@ -109,7 +110,7 @@ layout: compress
           var grids = document.querySelectorAll('.cards');
           if (!grids.length) return;
           var cols = getComputedStyle(grids[0]).gridTemplateColumns.split(' ').length;
-          if (cols === lastCols) return; // only recompute when the layout changes
+          if (cols === lastCols) return; /* only recompute when the layout changes */
           lastCols = cols;
 
           grids.forEach(function (grid) {
@@ -117,8 +118,8 @@ layout: compress
             var assigned = [];
             cards.forEach(function (card, i) {
               var banned = {};
-              if (i % cols !== 0) banned[assigned[i - 1]] = true;   // left neighbour
-              if (i - cols >= 0) banned[assigned[i - cols]] = true; // neighbour above
+              if (i % cols !== 0) banned[assigned[i - 1]] = true;   /* left neighbour */
+              if (i - cols >= 0) banned[assigned[i - cols]] = true; /* neighbour above */
               var choices = COLORS.filter(function (c) { return !banned[c]; });
               var pick = choices[hash(keyOf(card)) % choices.length];
               COLORS.forEach(function (c) { card.classList.remove(c); });
@@ -128,8 +129,10 @@ layout: compress
           });
         }
 
-        if (document.readyState !== 'loading') colorize();
-        else document.addEventListener('DOMContentLoaded', colorize);
+        /* This script sits at the end of <body>, so the cards already exist —
+           colour them now rather than waiting on DOMContentLoaded (which is
+           held up by deferred CDN scripts). */
+        colorize();
         var t;
         window.addEventListener('resize', function () { clearTimeout(t); t = setTimeout(colorize, 150); });
       })();
