@@ -8,8 +8,8 @@
 | **Session ID** | `ebf11346-25d4-48c2-8064-4b2fe4277e26` |
 | **Working Dir** | `/Users/khnguyxn/Desktop/hardyowo.github.io` |
 | **Started** | 7/1/2026, 8:09:34 AM |
-| **Last Updated** | 7/24/2026, 2:47:32 AM |
-| **Messages** | 2076 |
+| **Last Updated** | 7/24/2026, 2:50:35 AM |
+| **Messages** | 2085 |
 
 ---
 
@@ -26868,6 +26868,127 @@ I converted every `//` comment in the script to `/* */` block comments, which su
 Push these changes and the colours will appear on GitHub Pages.
 
 One thing to keep in mind for the future: **any inline `<script>` you add to a layout in this repo must avoid `//` line comments** (and rely on explicit semicolons, not newline-based ASI) — production compression puts it all on one line. Want me to save that as a note so it doesn't bite again?
+
+
+---
+
+## User <sup>7/24/2026, 2:50:07 AM</sup>
+
+please add it as a note
+
+
+---
+
+## Assistant <sup>7/24/2026, 2:50:11 AM</sup>
+
+I'll save it to memory. Let me check the existing memory index first.
+
+
+---
+
+## Assistant <sup>7/24/2026, 2:50:12 AM</sup>
+
+<details>
+<summary>Tool: <code>Bash</code></summary>
+
+```json
+{
+  "command": "cat /Users/khnguyxn/.claude/projects/-Users-khnguyxn-Desktop-hardyowo-github-io/memory/MEMORY.md 2>/dev/null || echo \"NO MEMORY.md YET\"",
+  "description": "Read existing memory index"
+}
+```
+
+</details>
+
+
+---
+
+## User <sup>7/24/2026, 2:50:12 AM</sup>
+
+<details>
+<summary>Tool Result</summary>
+
+```
+NO MEMORY.md YET
+```
+
+</details>
+
+
+---
+
+## Assistant <sup>7/24/2026, 2:50:23 AM</sup>
+
+<details>
+<summary>Tool: <code>Write</code></summary>
+
+```json
+{
+  "file_path": "/Users/khnguyxn/.claude/projects/-Users-khnguyxn-Desktop-hardyowo-github-io/memory/inline-script-no-line-comments.md",
+  "content": "---\nname: inline-script-no-line-comments\ndescription: Inline <script> in Jekyll layouts must avoid // line comments — production compression collapses newlines and breaks them\nmetadata:\n  type: project\n---\n\nAny inline `<script>` added to a layout in this repo must avoid `//` line comments and must not rely on newline-based ASI (use explicit semicolons).\n\n**Why:** GitHub Pages builds with `JEKYLL_ENV=production`, which activates this repo's HTML compression (`compress_html` in `_config.yml`, applied via `layout: compress` on `_layouts/default.html`). It strips ALL newlines, including inside `<script>` tags. Once the script is on one line, every `//` comment silently comments out the rest of the code. This does NOT reproduce locally because compression is disabled in the development env — it only breaks on GitHub Pages.\n\n**How to apply:** Use `/* */` block comments in inline scripts. To verify a change before pushing, build with `JEKYLL_ENV=production bundle exec jekyll build` and load `_site` in a browser (e.g. `python3 -m http.server` from `_site`), not just the dev `jekyll serve`. This exact bug killed the Le Corbusier card-colour script (`colorize()` in `_layouts/default.html`). Also prefer running load-time DOM scripts immediately when they sit at the end of `<body>` rather than gating on `DOMContentLoaded`, which deferred CDN scripts (MathJax/mermaid) can delay.\n"
+}
+```
+
+</details>
+
+
+---
+
+## User <sup>7/24/2026, 2:50:24 AM</sup>
+
+<details>
+<summary>Tool Result</summary>
+
+```
+File created successfully at: /Users/khnguyxn/.claude/projects/-Users-khnguyxn-Desktop-hardyowo-github-io/memory/inline-script-no-line-comments.md (file state is current in your context — no need to Read it back)
+```
+
+</details>
+
+
+---
+
+## Assistant <sup>7/24/2026, 2:50:29 AM</sup>
+
+<details>
+<summary>Tool: <code>Write</code></summary>
+
+```json
+{
+  "file_path": "/Users/khnguyxn/.claude/projects/-Users-khnguyxn-Desktop-hardyowo-github-io/memory/MEMORY.md",
+  "content": "- [Inline script: no // comments](inline-script-no-line-comments.md) — production HTML compression collapses newlines and breaks inline `<script>` line comments (only fails on GitHub Pages, not locally)\n"
+}
+```
+
+</details>
+
+
+---
+
+## User <sup>7/24/2026, 2:50:30 AM</sup>
+
+<details>
+<summary>Tool Result</summary>
+
+```
+File created successfully at: /Users/khnguyxn/.claude/projects/-Users-khnguyxn-Desktop-hardyowo-github-io/memory/MEMORY.md (file state is current in your context — no need to Read it back)
+```
+
+</details>
+
+
+---
+
+## Assistant <sup>7/24/2026, 2:50:35 AM</sup>
+
+Saved. The note captures:
+
+- **The rule:** inline `<script>` in this repo's layouts must avoid `//` line comments (and newline-based ASI) — use `/* */` block comments.
+- **Why:** production `compress_html` collapses newlines inside `<script>`, so `//` swallows the rest; only breaks on GitHub Pages, not in local dev.
+- **How to verify:** build with `JEKYLL_ENV=production` and serve `_site` before pushing.
+- Plus the related tip about running end-of-body DOM scripts immediately rather than gating on `DOMContentLoaded`.
+
+It's indexed in `MEMORY.md`, so it'll load in future sessions on this project.
 
 
 ---
