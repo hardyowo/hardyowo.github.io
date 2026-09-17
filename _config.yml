@@ -23,7 +23,7 @@ repository               : "hardyowo/hardyowo.github.io"
 #               Additional customization can be done by editing /_includes/author-profile.html
 author:
   # Biographic information
-  avatar           : "96926681.jpeg"
+  avatar           : "headshot.JPG"
   name             : "Khanh Nguyen"
   pronouns         : "he/him" 
   bio              : "Qualia-absent Homunculi-headed System"
