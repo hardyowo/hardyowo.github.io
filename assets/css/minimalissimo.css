@@ -279,7 +279,75 @@ a { color: inherit; text-decoration: none; }
 .article__body pre { background: var(--tile); padding: 1.1rem 1.25rem; overflow-x: auto; font-size: 0.9rem; line-height: 1.5; margin: 0 0 1.4rem; }
 .article__body pre code { background: none; padding: 0; }
 
-.pdf-embed { width: 100%; height: 85vh; border: 1px solid var(--line); }
+/* --------------------------------------------------------------------------
+   CV page — language switch (English / Tiếng Việt), CSS-only via radios
+   -------------------------------------------------------------------------- */
+
+.cv__radio { position: absolute; opacity: 0; pointer-events: none; }
+
+/* Controls sit on the frame's shoulders: languages flush left, download
+   flush right, both aligned to the edges of the viewer below. */
+.cv__bar {
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 0.75rem; margin: 0 0 0.85rem;
+}
+.cv__tabs { display: flex; align-items: center; gap: 0.35rem; }
+
+.cv__tab {
+  padding: 0.25rem 0.6rem; font-size: 0.9rem; line-height: 1.5;
+  color: var(--muted); cursor: pointer; white-space: nowrap;
+  text-decoration: none; user-select: none;
+}
+
+/* Download is an action, not a mode: it gets button chrome and a plain
+   colour change, deliberately outside the marker-wipe used for links. */
+.article__body .cv__dl {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.45rem;
+  padding: 0.4rem 0.85rem; margin: 0; font-size: 0.85rem; line-height: 1.4;
+  color: #fff; background: #c0392b; white-space: nowrap;  /* the .card--red tile */
+  border: 1px solid #c0392b; border-radius: 8px;          /* radius matches .dock */
+  text-decoration: none; cursor: pointer;
+  transition: filter var(--dur) ease;
+}
+/* Same darkening the homepage tiles use on hover. */
+.article__body .cv__dl:hover { filter: brightness(0.94); color: #fff; }
+.article__body .cv__dl:focus-visible {
+  filter: brightness(0.94); color: #fff;
+  outline: 1px solid var(--fg); outline-offset: 2px;
+}
+.article__body .cv__dl:active { transform: translateY(1px); }
+.cv__dl-ic {
+  width: 0.95rem; height: 0.95rem; flex: none;
+  transition: transform var(--dur) ease;
+}
+.article__body .cv__dl:hover .cv__dl-ic { transform: translateY(1px); }
+
+/* Active language wears the marker highlight already fully wiped in. */
+#cv-en:checked ~ .cv__bar .cv__tab--en,
+#cv-vi:checked ~ .cv__bar .cv__tab--vi { background-size: 100% 100%; color: #fff; }
+
+#cv-en:focus-visible ~ .cv__bar .cv__tab--en,
+#cv-vi:focus-visible ~ .cv__bar .cv__tab--vi { outline: 1px solid var(--fg); outline-offset: 2px; }
+
+/* The label stays English in both modes; the two links differ only in which
+   file they fetch, and share one grid cell so the box never moves. */
+.cv__dlwrap { display: inline-grid; }
+.article__body .cv__dl { grid-area: 1 / 1; text-align: center; }
+.cv__dl--vi { visibility: hidden; }
+#cv-vi:checked ~ .cv__bar .cv__dl--en { visibility: hidden; }
+#cv-vi:checked ~ .cv__bar .cv__dl--vi { visibility: visible; }
+
+/* Both frames stay laid out at full size and cross-fade: a PDF viewer that
+   first measures itself inside a display:none frame (Safari) keeps the zoom
+   it computed at zero width, so the page renders tiny once revealed. */
+.cv__stack { position: relative; height: 85vh; border: 1px solid var(--line); }
+.cv__doc {
+  position: absolute; inset: 0; width: 100%; height: 100%; border: 0;
+  opacity: 0; pointer-events: none; transition: opacity var(--dur) ease;
+}
+.cv__doc--en { opacity: 1; pointer-events: auto; z-index: 1; }
+#cv-vi:checked ~ .cv__stack .cv__doc--en { opacity: 0; pointer-events: none; z-index: 0; }
+#cv-vi:checked ~ .cv__stack .cv__doc--vi { opacity: 1; pointer-events: auto; z-index: 1; }
 
 /* Comments (giscus) */
 .comments { margin-top: 5rem; padding-top: 1.5rem; border-top: 1px solid var(--line); }
@@ -380,6 +448,7 @@ mjx-container { line-height: normal; }
   border-radius: 5px;
 }
 .menu-pop a:hover .menu-pop__hl { background-size: 100% 100%; color: #fff; }
+.cv__tab:hover { background-size: 100% 100%; color: #fff; }
 .menu-pop__rule { height: 1px; background: var(--line); margin: 0.4rem 0.75rem; }
 
 /* --------------------------------------------------------------------------
@@ -430,6 +499,7 @@ mjx-container { line-height: normal; }
 .dock__brand,
 .menu-pop__hl,
 .article__body a,
+.cv__tab,
 .card__head-hl {
   background-image: linear-gradient(#000, #000);
   background-repeat: no-repeat;
