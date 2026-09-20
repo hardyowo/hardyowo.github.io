@@ -17,7 +17,7 @@ redirect_from:
     </span>
     <span class="cv__dlwrap">
       <a class="cv__dl cv__dl--en" href="{{ '/files/CV_English.pdf' | relative_url }}" download><svg class="cv__dl-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M8 11l4 4 4-4M5 20h14"/></svg><span>Download PDF</span></a>
-      <a class="cv__dl cv__dl--vi" href="{{ '/files/CV_Vietnamese.pdf' | relative_url }}" download><svg class="cv__dl-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M8 11l4 4 4-4M5 20h14"/></svg><span>Download PDF</span></a>
+      <a class="cv__dl cv__dl--vi" href="{{ '/files/CV_Vietnamese.pdf' | relative_url }}" download><svg class="cv__dl-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M8 11l4 4 4-4M5 20h14"/></svg><span>Tải xuống PDF</span></a>
     </span>
   </div>
   <div class="cv__stack">
